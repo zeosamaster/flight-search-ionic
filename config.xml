@@ -3,7 +3,7 @@
     <name>flight-search</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.66:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -85,6 +85,8 @@
         <variable name="APP_ID" value="2028204957456727" />
         <variable name="APP_NAME" value="Flight Search" />
     </plugin>
+    <allow-navigation href="http://192.168.1.66:8100" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
     <engine name="android" spec="7.0.0" />
     <engine name="browser" spec="5.0.3" />
 </widget>
