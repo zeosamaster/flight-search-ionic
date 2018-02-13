@@ -9,26 +9,15 @@ import { Facebook } from '@ionic-native/facebook';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-// Pages
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-
 // Components
 import { MyApp } from './app.component';
-
 
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
     declarations: [
-        MyApp,
-        AboutPage,
-        ContactPage,
-        HomePage,
-        TabsPage
+        MyApp
     ],
     imports: [
         BrowserModule,
@@ -41,11 +30,7 @@ import { AuthProvider } from '../providers/auth/auth';
     ],
     bootstrap: [IonicApp],
     entryComponents: [
-        MyApp,
-        AboutPage,
-        ContactPage,
-        HomePage,
-        TabsPage
+        MyApp
     ],
     providers: [
         Facebook,

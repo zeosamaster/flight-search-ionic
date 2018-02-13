@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Storage } from '@ionic/storage';
 
-import { AppConfig } from './../../app/app.config';
+import { FACEBOOK_APP_ID } from './auth.config';
 
 @Injectable()
 export class AuthProvider {
@@ -18,7 +18,6 @@ export class AuthProvider {
     // Auth methods
     public facebookLogin(): Promise<any> {
         return Promise.resolve()
-            .then(() => this.facebook.browserInit(AppConfig.facebookAppId))
             .then(() => this.facebook.login(['public_profile', 'email']))
             .then((res: FacebookLoginResponse) => this.http.post(this.facebookLoginUrl, { access_token: res.authResponse.accessToken }).toPromise())
             .then((res: any) => this.setToken(res.token))
