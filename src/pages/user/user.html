@@ -20,7 +20,7 @@
     </ng-container>
 
     <ng-container *ngIf="user">
-        {{ user | json }}
+        <user-info [user]="user"></user-info>
 
         <button ion-button full color="danger" (click)="logout()">Logout</button>
     </ng-container>
