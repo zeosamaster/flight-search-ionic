@@ -42,10 +42,17 @@
 
                 <div *ngIf="error" class="alert alert-danger">{{error}}</div>
                 <div *ngIf="password !== confirmPassword" class="alert alert-danger">Passwords must match</div>
-                <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Registar</button>
+                <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register</button>
 
             </ion-col>
         </ion-row>
 
     </form>
+
+    <ion-row>
+        <ion-col>
+            <button ion-button color="secondary" full (click)="goToLoginPage()">Login</button>
+        </ion-col>
+    </ion-row>
+
 </ion-content>

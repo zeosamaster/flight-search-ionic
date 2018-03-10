@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from '../../models/user';
@@ -13,6 +13,7 @@ export class UserPage {
     public user: User;
 
     constructor(
+        private nav: NavController,
         private auth: AuthProvider
     ) { }
 
@@ -22,11 +23,8 @@ export class UserPage {
         });
     }
 
-    public facebookLogin(): Promise<User> {
-        return this.auth.facebookLogin();
-    }
-
     public logout(): Promise<User> {
-        return this.auth.logout();
+        return this.auth.logout()
+            .then(() => this.nav.push('LoginPage'));
     }
 }

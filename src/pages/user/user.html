@@ -7,17 +7,13 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title *ngIf="!user">Login</ion-title>
-        <ion-title *ngIf="user">{{ user.name }}</ion-title>
+        <ion-title [innerHTML]="user?.name"></ion-title>
     </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <ng-container *ngIf="!user">
-        <button ion-button full (click)="facebookLogin()">Facebook</button>
-    </ng-container>
 
     <ng-container *ngIf="user">
         <user-info [user]="user"></user-info>

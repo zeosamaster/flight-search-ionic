@@ -15,14 +15,14 @@ import { AuthProvider } from '../../providers/auth/auth';
     selector: 'page-login',
     templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
 
     private email: string;
     private password: string;
     private error: string;
 
     constructor(
-        public navCtrl: NavController,
+        public nav: NavController,
         public navParams: NavParams,
         public auth: AuthProvider
     ) { }
@@ -31,9 +31,24 @@ export class LoginPage {
         this.email = this.navParams.get('email') || '';
     }
 
-    private login() {
-        this.auth.passwordLogin(this.email, this.password)
+    public login(): Promise<void> {
+        return this.auth.passwordLogin(this.email, this.password)
+            .then(() => this.goToUserPage())
             .catch((e) => { this.error = JSON.stringify(e); });
+    }
+
+    public facebookLogin(): Promise<void> {
+        return this.auth.facebookLogin()
+            .then(() => this.goToUserPage())
+            .catch((e) => { this.error = JSON.stringify(e); });
+    }
+
+    private goToUserPage(): Promise<any> {
+        return this.nav.push('UserPage');
+    }
+
+    public goToRegisterPage(): Promise<any> {
+        return this.nav.push('RegisterPage', { email: this.email });
     }
 
 }

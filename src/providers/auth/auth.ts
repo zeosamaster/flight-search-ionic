@@ -6,12 +6,6 @@ import { Storage } from '@ionic/storage';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/skip';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/fromPromise';
 
 import { masterToken, endpoints } from './auth.config';
 import { User } from '../../models/user';
@@ -38,11 +32,10 @@ export class AuthProvider {
     }
 
     // Auth methods
-    public register(email: string, password: string): Promise<User> {
+    public register(email: string, password: string): Promise<void> {
         return Promise.resolve()
             .then(() => this.http.post(endpoints.register, { email, password, access_token: masterToken }).toPromise())
-            .then((res: any) => new User(res))
-            .then((user: User) => this.setUser(user))
+            .then(() => { })
             .catch(e => {
                 console.error('Error logging into Facebook', e);
                 return Promise.reject(e);

@@ -15,7 +15,7 @@ import { AuthProvider } from '../../providers/auth/auth';
     selector: 'page-register',
     templateUrl: 'register.html',
 })
-export class RegisterPage {
+export class RegisterPage implements OnInit {
 
     private email: string;
     private password: string;
@@ -23,7 +23,7 @@ export class RegisterPage {
     private error: string;
 
     constructor(
-        public navCtrl: NavController,
+        public nav: NavController,
         public navParams: NavParams,
         public auth: AuthProvider
     ) { }
@@ -32,16 +32,17 @@ export class RegisterPage {
         this.email = this.navParams.get('email') || '';
     }
 
-    private login() {
+    public register(): Promise<any> {
         if (this.password !== this.confirmPassword) {
             this.error = 'Passwords must match';
             return;
         }
-        this.auth.register(this.email, this.password)
+        return this.auth.register(this.email, this.password)
+            .then(() => this.goToLoginPage())
             .catch((e) => { this.error = JSON.stringify(e); });
     }
 
-    private goToLogin() {
-        this.navCtrl.push('login', { email: this.email })
+    public goToLoginPage(): Promise<any> {
+        return this.nav.push('LoginPage', { email: this.email });
     }
 }
