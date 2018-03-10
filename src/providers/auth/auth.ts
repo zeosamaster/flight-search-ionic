@@ -13,7 +13,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 
-import { endpoints } from './auth.config';
+import { masterToken, endpoints } from './auth.config';
 import { User } from '../../models/user';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class AuthProvider {
     // Auth methods
     public register(email: string, password: string): Promise<User> {
         return Promise.resolve()
-            .then(() => this.http.post(endpoints.register, { email, password }).toPromise())
+            .then(() => this.http.post(endpoints.register, { email, password, access_token: masterToken }).toPromise())
             .then((res: any) => new User(res))
             .then((user: User) => this.setUser(user))
             .catch(e => {
@@ -51,7 +51,7 @@ export class AuthProvider {
 
     public passwordLogin(username: string, password: string): Promise<User> {
         return Promise.resolve()
-            .then(() => this.http.post(endpoints.passwordLogin, {}, { headers: { Authorization: 'Basic ' + btoa(username + ":" + password) } }).toPromise())
+            .then(() => this.http.post(endpoints.passwordLogin, { access_token: masterToken }, { headers: { Authorization: 'Basic ' + btoa(username + ":" + password) } }).toPromise())
             .then((res: any) => new User(res))
             .then((user: User) => this.setUser(user))
             .catch(e => {
