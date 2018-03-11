@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Components
 import { MyApp } from './app.component';
+import { ComponentsModule } from '../components/components.module';
 
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
@@ -26,7 +27,8 @@ import { AuthProvider } from '../providers/auth/auth';
         IonicStorageModule.forRoot({
             name: 'flight-search-db',
             driverOrder: ['indexeddb', 'sqlite', 'websql']
-        })
+        }),
+        ComponentsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

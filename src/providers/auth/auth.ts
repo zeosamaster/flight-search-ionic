@@ -14,6 +14,10 @@ import { User } from '../../models/user';
 export class AuthProvider {
     public user$: BehaviorSubject<User>;
 
+    private get user(): User {
+        return this.user$.getValue();
+    }
+
     constructor(
         private facebook: Facebook,
         private http: HttpClient,
@@ -34,7 +38,7 @@ export class AuthProvider {
     // Auth methods
     public register(email: string, password: string): Promise<void> {
         return Promise.resolve()
-            .then(() => this.http.post(endpoints.register, { email, password, access_token: masterToken }).toPromise())
+            .then(() => this.http.post(endpoints.register(), { email, password, access_token: masterToken }).toPromise())
             .then(() => { })
             .catch(e => {
                 console.error('Error logging into Facebook', e);
@@ -44,7 +48,7 @@ export class AuthProvider {
 
     public passwordLogin(username: string, password: string): Promise<User> {
         return Promise.resolve()
-            .then(() => this.http.post(endpoints.passwordLogin, { access_token: masterToken }, { headers: { Authorization: 'Basic ' + btoa(username + ":" + password) } }).toPromise())
+            .then(() => this.http.post(endpoints.passwordLogin(), { access_token: masterToken }, { headers: { Authorization: this.basicAuthHeader(username, password) } }).toPromise())
             .then((res: any) => new User(res))
             .then((user: User) => this.setUser(user))
             .catch(e => {
@@ -56,7 +60,7 @@ export class AuthProvider {
     public facebookLogin(): Promise<User> {
         return Promise.resolve()
             .then(() => this.facebook.login(['public_profile', 'email']))
-            .then((res: FacebookLoginResponse) => this.http.post(endpoints.facebookLogin, { access_token: res.authResponse.accessToken }).toPromise())
+            .then((res: FacebookLoginResponse) => this.http.post(endpoints.facebookLogin(), { access_token: res.authResponse.accessToken }).toPromise())
             .then((res: any) => new User(res))
             .then((user: User) => this.setUser(user))
             .catch(e => {
@@ -65,9 +69,19 @@ export class AuthProvider {
             });
     }
 
+    public changePassword(oldPassword: string, newPassword: string): Promise<void> {
+        return Promise.resolve()
+            .then(() => this.http.put(endpoints.changePassword(), { password: newPassword }, { headers: { Authorization: this.basicAuthHeader(this.user.email, oldPassword) } }).toPromise())
+            .then(() => { })
+            .catch(e => {
+                console.error('Error changing password', e);
+                return Promise.reject(e);
+            });
+    }
+
     public logout(): Promise<User> {
         return Promise.resolve()
-            .then(() => this.http.get(endpoints.logout).toPromise())
+            .then(() => this.http.get(endpoints.logout()).toPromise())
             .then((res: any) => this.clear())
             .catch(e => {
                 console.error('Error logging out', e);
@@ -84,5 +98,14 @@ export class AuthProvider {
 
     private clear(): Promise<User> {
         return this.setUser(null);
+    }
+
+    // Headers
+    private basicAuthHeader(username: string, password: string): string {
+        return 'Basic ' + btoa(username + ':' + password);
+    }
+    
+    private bearerAuthHeader(): string {
+        return 'Bearer ' + this.user.token;
     }
 }
