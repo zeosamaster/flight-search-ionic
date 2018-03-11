@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
+import './observables';
+
 // Plugins
 import { IonicStorageModule } from '@ionic/storage';
 import { Facebook } from '@ionic-native/facebook';
@@ -15,6 +17,7 @@ import { ComponentsModule } from '../components/components.module';
 
 // Providers
 import { AuthProvider } from '../providers/auth/auth';
+import { DataProvider } from '../providers/data/data';
 
 @NgModule({
     declarations: [
@@ -39,7 +42,8 @@ import { AuthProvider } from '../providers/auth/auth';
         StatusBar,
         SplashScreen,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
-        AuthProvider
+        AuthProvider,
+        DataProvider
     ]
 })
 export class AppModule { }

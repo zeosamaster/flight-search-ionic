@@ -2,4 +2,5 @@
     <ion-tab [root]="homeTab" tabTitle="Home" tabIcon="home"></ion-tab>
     <ion-tab [show]="isLogged$ | async" [root]="userTab" tabTitle="User" tabIcon="person"></ion-tab>
     <ion-tab [show]="!(isLogged$ | async)" [root]="loginTab" tabTitle="Login" tabIcon="log-in"></ion-tab>
+    <ion-tab [root]="airportsTab" tabTitle="Airport" tabIcon="plane"></ion-tab>
 </ion-tabs>

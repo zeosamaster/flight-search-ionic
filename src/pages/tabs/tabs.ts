@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 import { AuthProvider } from '../../providers/auth/auth';
 import { User } from '../../models/user';
@@ -14,6 +13,7 @@ export class TabsPage {
     private homeTab: string = 'HomePage';
     private userTab: string = 'UserPage';
     private loginTab: string = 'LoginPage';
+    private airportsTab: string = 'AirportsPage';
 
     private isLogged$: Observable<boolean>;
     
