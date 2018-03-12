@@ -1,0 +1,12 @@
+<ion-card>
+    <ion-card-content>
+
+        <div class="clickable" (click)="hidden=!hidden">
+            <ng-content select=".toggle-card-header"></ng-content>
+        </div>
+        <div *ngIf="!hidden">
+            <ng-content select=".toggle-card-content"></ng-content>
+        </div>
+
+    </ion-card-content>
+</ion-card>

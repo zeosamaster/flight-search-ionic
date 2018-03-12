@@ -6,6 +6,7 @@ import { PasswordComponent } from './password/password';
 import { PasswordConfirmComponent } from './password-confirm/password-confirm';
 import { PasswordChangeComponent } from './password-change/password-change';
 import { AirportInfoComponent } from './airport-info/airport-info';
+import { ToggleCardComponent } from './toggle-card/toggle-card';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { AirportInfoComponent } from './airport-info/airport-info';
         PasswordComponent,
         PasswordConfirmComponent,
         PasswordChangeComponent,
-        AirportInfoComponent
+        AirportInfoComponent,
+        ToggleCardComponent
     ],
     imports: [
         IonicModule
@@ -23,7 +25,8 @@ import { AirportInfoComponent } from './airport-info/airport-info';
         PasswordComponent,
         PasswordConfirmComponent,
         PasswordChangeComponent,
-        AirportInfoComponent
+        AirportInfoComponent,
+        ToggleCardComponent
     ]
 })
 export class ComponentsModule { }

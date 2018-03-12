@@ -15,45 +15,46 @@
 
 <ion-content padding>
 
-    <ion-card *ngFor="let continent of world.continents">
-        <ion-card-content>
+    <toggle-card *ngFor="let continent of world.continents">
 
-            <ion-card-title (click)="visibleContinent = visibleContinent===continent ? false : continent">
-                {{ continent.name }}
-            </ion-card-title>
-            <p>Countries: {{ continent.countries.length }}</p>
-            
-            <ion-card *ngFor="let country of continent.countries" [hidden]="visibleContinent!=continent">
-                <ion-card-content>
+        <div class="toggle-card-header">
+            <ion-card-title>{{ continent.name }}</ion-card-title>
+            <p>{{ continent.countries.length }} {{ continent.countries.length > 1 ? 'Countries' : 'Country' }}</p>
+        </div>
 
-                    <ion-card-title (click)="visibleCountry = visibleCountry===country ? false : country">
-                        {{ country.name }}
-                    </ion-card-title>
-                    <p>Cities: {{ country.cities.length }}</p>
+        <div class="toggle-card-content">
+            <toggle-card *ngFor="let country of continent.countries">
 
-                    <ion-card *ngFor="let city of country.cities" [hidden]="visibleCountry!=country">
-                        <ion-card-content>
+                <div class="toggle-card-header">
+                    <ion-card-title>{{ country.name }}</ion-card-title>
+                    <p>{{ country.cities.length }} {{ country.cities.length > 1 ? 'Cities' : 'City' }}</p>
+                </div>
 
-                            <ion-card-title (click)="visibleCity = visibleCity===city ? false : city">
-                                {{ city.name }}
-                            </ion-card-title>
-                            <p>Airports: {{ city.airports.length }}</p>
+                <div class="toggle-card-content">
+                    <toggle-card *ngFor="let city of country.cities">
 
-                            <ion-card *ngFor="let airport of city.airports" [hidden]="visibleCity!=city">
+                        <div class="toggle-card-header">
+                            <ion-card-title>{{ city.name }}</ion-card-title>
+                            <p *ngIf="city.airports.length > 1">{{ city.airports.length }} Airports</p>
+                        </div>
+
+                        <div class="toggle-card-content">
+                            <ion-card>
                                 <ion-card-content>
 
-                                    <airport-info [airport]="airport"></airport-info>
-
+                                    <airport-info [airport]="airport" *ngFor="let airport of city.airports"></airport-info>
+                                    
                                 </ion-card-content>
                             </ion-card>
 
-                        </ion-card-content>
-                    </ion-card>
+                        </div>
 
-                </ion-card-content>
-            </ion-card>
+                    </toggle-card>
+                </div>
 
-        </ion-card-content>
-    </ion-card>
+            </toggle-card>
+        </div>
+
+    </toggle-card>
 
 </ion-content>
